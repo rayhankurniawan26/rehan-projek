@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeOptions = { 
             hour: '2-digit', 
             minute: '2-digit'
-            // 'second' dihilangkan
         }; 
         
         const dateString = now.toLocaleDateString('id-ID', dateOptions);
@@ -39,11 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             month: 'long', 
             day: 'numeric' 
         };
-        // Opsi waktu hanya jam dan menit
         const timeOptions = { 
             hour: '2-digit', 
             minute: '2-digit'
-            // 'second' dihilangkan
         };
         
         const dateString = now.toLocaleDateString('id-ID', dateOptions);
@@ -55,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateClockDisplay();
-    // Tetap perbarui setiap detik untuk memastikan menit berubah tepat waktu
     setInterval(updateClockDisplay, 1000); 
 
     // --- FUNGSI LOCAL STORAGE (TIDAK BERUBAH) ---
@@ -83,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- LOGIKA UTAMA APLIKASI (TIDAK BERUBAH) ---
+    // --- LOGIKA UTAMA APLIKASI ---
 
     function createTaskElement(taskText, timestamp) {
         const listItem = document.createElement('li');
@@ -102,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskSpan = listItem.querySelector('.task-text');
         const editButton = listItem.querySelector('.edit-btn');
         const deleteButton = listItem.querySelector('.delete-btn');
+        const timestampElement = listItem.querySelector('.task-timestamp'); // Dapatkan elemen timestamp
 
         // LOGIKA EDIT DATA
         editButton.addEventListener('click', function() {
@@ -117,6 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const newText = taskSpan.textContent.trim();
                 taskSpan.textContent = newText;
+                
+                // 💡 Pembaruan Utama: Perbarui waktu dan tanggal saat tugas disimpan
+                const newTimestamp = getCurrentTimestamp();
+                timestampElement.textContent = newTimestamp;
                 
                 if (newText === '') {
                     listItem.remove();
@@ -141,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskText = taskInput.value.trim();
 
         if (taskText !== "") {
-            // Dapatkan waktu saat ini tanpa detik
             const timestamp = getCurrentTimestamp(); 
             const newListItem = createTaskElement(taskText, timestamp);
             
