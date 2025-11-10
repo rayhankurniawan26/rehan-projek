@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FUNGSI WAKTU DAN TANGGAL ---
     
-    // Fungsi untuk mendapatkan string waktu saat ini (untuk data tugas) - TANPA DETIK
+    // Fungsi untuk mendapatkan string waktu saat ini (untuk data tugas dan tampilan)
     function getCurrentTimestamp() {
         const now = new Date();
         const dateOptions = { 
@@ -29,32 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${dateString} | ${timeString}`;
     }
 
-    // Fungsi untuk memperbarui tampilan jam real-time di atas - TANPA DETIK
+    // Fungsi untuk memperbarui tampilan jam real-time di atas
     function updateClockDisplay() {
-        const now = new Date();
-        const dateOptions = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        };
-        const timeOptions = { 
-            hour: '2-digit', 
-            minute: '2-digit'
-        };
-        
-        const dateString = now.toLocaleDateString('id-ID', dateOptions);
-        const timeString = now.toLocaleTimeString('id-ID', timeOptions);
+        // Menggunakan fungsi yang sama agar format konsisten
+        const displayTime = getCurrentTimestamp();
         
         if (datetimeDisplay) {
-            datetimeDisplay.innerHTML = `${dateString} | ${timeString}`;
+            datetimeDisplay.innerHTML = displayTime;
         }
     }
 
     updateClockDisplay();
+    // Tetap perbarui setiap detik untuk memastikan menit berubah tepat waktu
     setInterval(updateClockDisplay, 1000); 
 
-    // --- FUNGSI LOCAL STORAGE (TIDAK BERUBAH) ---
+    // --- FUNGSI LOCAL STORAGE ---
 
     function saveTasks() {
         const tasks = [];
@@ -115,9 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newText = taskSpan.textContent.trim();
                 taskSpan.textContent = newText;
                 
-                // 💡 Pembaruan Utama: Perbarui waktu dan tanggal saat tugas disimpan
+                // 💡 Pembaruan waktu saat tugas disimpan
                 const newTimestamp = getCurrentTimestamp();
-                timestampElement.textContent = newTimestamp;
+                if (timestampElement) {
+                    timestampElement.textContent = newTimestamp;
+                }
                 
                 if (newText === '') {
                     listItem.remove();
@@ -158,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tasks = taskList.querySelectorAll('li');
 
         tasks.forEach(task => {
+            // Pencarian hanya berdasarkan teks tugas
             const taskName = task.querySelector('.task-text').textContent.toLowerCase();
 
             if (taskName.includes(searchText)) {
