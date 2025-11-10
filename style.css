@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Latar belakang abu-abu muda */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Lebar card */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Mengatur input tugas dan tombol "Tambah" dalam satu baris */
+.input-group {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#taskInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px; /* Sudut tumpul kiri */
+    font-size: 16px;
+}
+
+.tambah-btn {
+    background-color: #4CAF50; /* Warna hijau seperti di gambar */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0; /* Sudut tumpul kanan */
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.tambah-btn:hover {
+    background-color: #45a049;
+}
+
+.search-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Agar padding tidak melebihi lebar 100% */
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Styling untuk daftar tugas */
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    border-left: 5px solid #4CAF50; /* Garis hijau di samping */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+}
+
+#task-list li:hover {
+    background-color: #f1f1f1;
+}
+
+#task-list li span {
+    flex-grow: 1;
+    word-break: break-word; /* Mencegah teks melebihi batas */
+}
+
+/* --- Penambahan Styling Edit Data --- */
+
+/* Mengatur tombol dalam satu grup (Actions container) */
+.actions {
+    display: flex;
+    align-items: center;
+    /* Jarak dari teks tugas */
+    margin-left: 10px;
+}
+
+/* Styling untuk tombol Edit/Simpan */
+.edit-btn {
+    background-color: #d32f2f; /* Warna biru */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px; /* Jarak antara Edit dan Hapus */
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.edit-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Styling untuk tombol Hapus (diberi margin-left 0 karena sudah ada margin-right di edit-btn) */
+.delete-btn {
+    background-color: #f44336; /* Warna merah */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    /* margin-left: 10px; <-- dihapus, diganti oleh margin-right di edit-btn */
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Indikator Visual saat mode editing aktif pada LI */
+#task-list li.editing {
+    background-color: #fffacd; /* Warna kuning muda saat diedit */
+    border-left: 5px solid #d32f2f; /* Garis biru */
+}
+
+/* Styling untuk teks SPAN saat bisa diedit */
+#task-list li span[contenteditable="true"] {
+    padding: 2px 5px;
+    border: 1px dashed #d32f2f;
+    background-color: white;
+    border-radius: 3px;
+} 
+
+/* --- Penambahan Styling Waktu Display Real-Time di Atas --- */
+.datetime-style {
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 20px;
+    padding: 8px;
+    border-bottom: 2px solid #eee;
+}
+
+/* --- Penyesuaian Styling Tugas dengan Waktu --- */
+
+/* Kontainer untuk teks tugas dan waktu (memastikan span dan small tidak terpisah jauh) */
+#task-list li .task-content {
+    display: flex;
+    flex-direction: column; /* Tugas dan waktu ditumpuk */
+    flex-grow: 1;
+    margin-right: 15px; /* Jarak dari tombol Edit/Hapus */
+}
+
+/* Teks tugas utama */
+#task-list li .task-text {
+    font-size: 16px;
+    font-weight: bold;
+    word-break: break-word; 
+}
+
+/* Tampilan waktu dan tanggal pada item tugas */
+#task-list li .task-timestamp {
+    font-size: 0.75em; /* Ukuran kecil */
+    color: #888;
+    margin-top: 2px;
+}
+
+/* Tampilan saat mode edit aktif */
+#task-list li span[contenteditable="true"] {
+    padding: 2px 5px;
+    border: 1px dashed #2196F3;
+    background-color: white;
+    border-radius: 3px;
+}
+
+/* Pastikan Anda menghapus atau memodifikasi CSS lama ini jika masih ada: */
+/*
+#task-list li span {
+    flex-grow: 1; <--- Ini sekarang digantikan oleh .task-content
+    word-break: break-word; 
+}
+*/
